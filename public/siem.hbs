@@ -1,0 +1,1433 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>RMS Records</title>
+
+	<link href="/img/favicon.png" rel="icon">
+	<link href="/css/fonts_google.css" rel="stylesheet">
+	<link rel="stylesheet" href="/css/fontawesome/css/fontawesome.min.css"> <!-- load fontawesome -->
+	<link rel="stylesheet" href="/css/font-awesome/css/font-awesome.min.css"> <!-- load fontawesome -->
+	<link href="/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="/css/bootstrap.min.css"> <!-- load bootstrap css -->
+	
+	<link rel="stylesheet" href="/css/dataTables.checkboxes.css"> <!-- load bootstrap css -->
+	<link href="/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link rel="stylesheet" type="text/css" href="/css/dc.css" />
+	<link rel="stylesheet" href="/css/jquery-ui.css" />
+	<link href="/css/dataTables.responsive.css" rel="stylesheet" />
+	<!--link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap.min.css" rel="stylesheet" /-->
+	<link rel="stylesheet" href="/css/jquery-confirm.css">
+	<link rel="stylesheet" href="/css/colorbox.css" />
+	<link rel="stylesheet" href="/imgSlides/imgSlides.css" />
+	<link href="/css/google-fonts.css" rel="stylesheet">
+
+
+
+	<link rel="stylesheet" href="/css/main.css" />
+</head>
+
+<body class="nav-md">
+
+	<style>
+    .td3 {
+        background-color: whitesmoke;
+    }
+
+    .td5 {
+        background-color: silver;
+    }
+
+    .reset
+    {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+    }
+
+    .reset > .panel-title
+    {
+        flex-grow: 1;
+    }
+
+    .popover-content
+    {
+        max-height: 600px;
+        overflow-y: auto;
+    }
+</style>
+
+<body class="nav-md">
+    <div class="container body">
+        <link rel="stylesheet" href="/css/navbar.css" />
+        
+  
+
+        <div class="" role="main">
+
+            <form method="post" id="arrest" name="arrest" action="arrest" target="bugsme2" style="display: none">
+                <input type="text" id="incident_no" name="incident_no" style="height: 30px; width: 200px;">
+                <!input type="text" id="secret_key" name="secret_key" style="height: 30px; width: 200px;">
+                    <input type="text" id="arrest1" name="arrest1" style="height: 30px; width: 200px;">
+                    <input type="text" id="hadi" name="hadi" style="height: 30px; width: 200px;">
+                    <input type="submit">
+            </form>
+            <form method="post" id="suspect" name="suspect" action="suspect" target="bugsme3" style="display: none">
+                <input type="text" id="incident_no_sp" name="incident_no_sp" style="height: 30px; width: 200px;">
+                <!input type="text" id="secret_key" name="secret_key" style="height: 30px; width: 200px;">
+                    <input type="text" id="suspect1" name="suspect1" style="height: 30px; width: 200px;">
+                    <input type="text" id="hadi1" name="hadi1" style="height: 30px; width: 200px;">
+                    <input type="submit">
+                    <input type="hidden" name="_csrf" value="">
+            </form>
+            <input type="text" id="inc_view" name="inc_view" style="display: none">
+            <input type="text" id="inc_view_id" name="inc_view_id" style="display: none">
+            <!-- page content -->
+            <div class="right_col" role="main" style="background: transparent;">
+                <div class="row top_tiles">
+
+
+                    <div class="panel-group col-md-2 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">White List
+                                </h4>
+                            </div>
+                            <div class="panel-collapse" style="background:seagreen">
+                                <div class="panel-body" id="white_list"
+                                    style="text-align:center; color:white; font-size:20px; font-weight:bold">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel-group col-md-2 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Black List
+                                </h4>
+                            </div>
+                            <div class="panel-collapse" style="background:#001a00">
+                                <div class="panel-body" id="black_list"
+                                    style="text-align:center; color:white; font-size:20px; font-weight:bold">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel-group col-md-2 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Watch List
+                                </h4>
+                            </div>
+                            <div class="panel-collapse" style="background:#ffcc00">
+                                <div class="panel-body" id="watch_list"
+                                    style="text-align:center; color:white; font-size:20px; font-weight:bold">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel-group col-md-2 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Action Need
+                                </h4>
+                            </div>
+                            <div class="panel-collapse" style="background:#ffb3b3">
+                                <div class="panel-body" id="action_list"
+                                    style="text-align:center; color:white; font-size:20px; font-weight:bold">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel-group col-md-2 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Bots
+                                </h4>
+                            </div>
+                            <div class="panel-collapse" style="background:#ffb3ff">
+                                <div class="panel-body" id="bot_list"
+                                    style="text-align:center; color:white; font-size:20px; font-weight:bold">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="panel-group col-md-2 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">CPU Alerts
+                                </h4>
+                            </div>
+                            <div class="panel-collapse" style="background:#ffaa80">
+                                <div class="panel-body" id="cpu_list"
+                                    style="text-align:center; color:white; font-size:20px; font-weight:bold">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <!-- Content -->
+                    <div class="panel-group col-md-2 col-sm-12 col-xs-12">
+                        <div class="panel panel-default">
+
+                            <div class="panel-heading">
+                                <h4 class="panel-title">Filter
+                                </h4>
+                            </div>
+
+                            <div class="panel-collapse">
+                                <div class="panel-body">
+                                    <div id="interval_day_select">
+                                        <input type="button" id="24hrs" class="btn btn-default interval-input"
+                                            style="height:30px;" value="24 Hrs">
+                                        <input type="button" id="3days" class="btn btn-default interval-input"
+                                            style="height:30px;" value="3 Days">
+                                        <input type="button" id="1week" class="btn btn-primary interval-input"
+                                            style="height:30px;" value="1 Week">
+                                        <input type="button" id="1month" class="btn btn-default interval-input"
+                                            style="height:30px;" value="1 Month">
+                                        <input type="button" id="3months" class="btn btn-default interval-input"
+                                            style="height:30px;" value="3 Months">
+                                        <input type="button" id="6months" class="btn btn-default interval-input"
+                                            style="height:30px;" value="6 Months">
+                                        <input type="button" id="1year" class="btn btn-default interval-input"
+                                            style="height:30px;" value="1 Year">
+                                        <input type="button" id="range" class="btn btn-default interval-input"
+                                            style="height:30px;" value="Range">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                    <div class="panel-group col-md-3 col-sm-4 col-xs-12" id="accordion_follow_bir" style="display:nne">
+                        <div class="panel panel-default">
+                            <div class="panel-heading reset">
+                                <h4 class="panel-title collapsed intro">Unique IP Address By Country</h4>
+                                <button class="btn btn-sm btn-primary">Reset</button>
+                            </div>
+                            <div class="panel-collapse collapse in" id="collapse1">
+                                <div class="panel-body">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" id="chart5" style="height:250px;">
+                                    </div>
+                                    <!panel body ends>
+                                </div>
+                                <!form-row ends>
+                            </div>
+                            <!panel_panel default ends>
+                        </div>
+                        <!acordion ends>
+                    </div>
+                    <div class="panel-group col-md-3 col-sm-12 col-xs-12" id="accordion_follow_iki">
+                        <div class="panel panel-default">
+                            <div class="panel-heading reset">
+                                <h4 class="panel-title collapsed intro">Page Name</h4>
+                                <button class="btn btn-sm btn-primary">Reset</button>
+                            </div>
+                            <div class="panel-collapse collapse in" id="collapse1">
+                                <div class="panel-body">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" id="chart2" style="height:250px;">
+                                    </div>
+                                    <!panel body ends>
+                                </div>
+                                <!form-row ends>
+                            </div>
+                            <!panel_panel default ends>
+                        </div>
+                        <!acordion ends>
+                    </div>
+                    <div class="panel-group col-md-4 col-sm-12 col-xs-12" id="accordion_follow_iki">
+                        <div class="panel panel-default">
+                            <div class="panel-heading reset">
+                                <h4 class="panel-title collapsed intro">Time Analysis</h4>
+                                <button class="btn btn-sm btn-primary">Reset</button>
+                            </div>
+                            <div class="panel-collapse collapse in" id="collapse1">
+                                <div class="panel-body">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" id="dc-date-chart" style="height:250px;">
+                                    </div>
+                                    <!panel body ends>
+                                </div>
+                                <!form-row ends>
+                            </div>
+                            <!panel_panel default ends>
+                        </div>
+                        <!acordion ends>
+                    </div>
+                    <!--acordion ends-->
+                    <div class="panel-group col-md-12 col-sm-12 col-xs-12" id="accordion_follow">
+                        <div class="panel panel-default">
+                            <div class="panel-heading reset">
+                                <h4 class="panel-title collapsed intro">Detailed Informaton</h4>
+                                <button class="btn btn-sm btn-primary" id="reset_table">Reset</button>
+                            </div>
+                            <div class="panel-collapse collapse in" id="siem_table">
+                                <div class="panel-body">
+                                    <div class="col-md-12 col-sm-12 col-xs-12" id="chart4">
+                                        <table class="datatable" id="dc-table-chart2" class="tableBorder">
+                                            <thead>
+                                                <tr class="header">
+                                                    <th class="header" style="display:none">id</th>
+                                                    <th class="header" style="">IP Address</th>
+                                                    <th class="header" style="">Country</th>
+                                                    <th class="header" style="">City</th>
+                                                    <th class="header" style="">Time Zone</th>
+                                                    <th class="header" style="">State</th>
+                                                    <th class="header" style="">Activity</th>
+                                                    <th class="header" style="">Typed UserName</th>
+                                                    <th class="header" style="">Machine</th>
+                                                    <th class="header" style="">Action</th>
+                                                    <th class="header" style="">Time</th>
+
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                    </div>
+                                    <!panel body ends>
+                                </div>
+                                <!form-row ends>
+                            </div>
+                            <!panel_panel default ends>
+                        </div>
+                        <!acordion ends>
+                    </div>
+                </div>
+                <!--acordion ends-->
+                <div class="panel-group col-md-4 col-sm-12 col-xs-12 d-none" id="accordion_follow">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title collapsed intro">Page Activity</h4>
+                        </div>
+                        <div class="panel-collapse collapse in" id="collapse1">
+                            <div class="panel-body">
+                                <div class="col-md-12 col-sm-12 col-xs-12" id="chart3" style="height:1250px;">
+                                </div>
+                                <!panel body ends>
+                            </div>
+                            <!form-row ends>
+                        </div>
+                        <!panel_panel default ends>
+                    </div>
+                    <!acordion ends>
+                </div>
+                <div class="row" style="display:none;">
+                    <div class="col-md-8 col-sm-8 col-xs-12 dc-data-count" style="height:50px; margin-top:-20px;">
+                        <h2 style="font-size:16px; float:left;">
+                            <span class="filter-count" style="font-size:20px;"></span>
+                            selected out of
+                            <span class="total-count" style="font-size:20px;"></span>
+                            records
+                    </div>
+                </div>
+            </div>
+            <!--End of Top Raw Titles-->
+        </div>
+    </div>
+    <div class="modal fade" id="selectRange" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document" style="width:300px;">
+            <div class="modal-content">
+                <div class="modal-header modal-default" style="font-weight:bold;text-align:center;float:center">
+                    Set Date Range
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Start Date:</label>
+                        <input id="start_date" class="form-control datepicker" type="date">
+                    </div>
+                    <div class="form-group">
+                        <label>End Date:</label>
+                        <input id="end_date" class="form-control datepicker" type="date">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="btn_set_range" type="button" class="btn btn-primary">OK</button>
+                    <button type="button" class="btn btn-danger no-print" data-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <style>
+        #siem_table {
+            background-color: rgba(200, 200, 200, 0.3);
+        }
+
+        #dc-table-chart2_info {
+            color: white;
+        }
+
+        .interval-input {
+            width: 100%;
+            margin: 0;
+        }
+
+        .interval-input:focus {
+            outline: none;
+        }
+
+        .popover-content {
+            width: 1000 !important;
+            background-color: whitesmoke
+        }
+    </style>
+
+    <script src="/js/d3.js"></script>
+    <script src="/js/crossfilter.js"></script>
+    <script src="/js/dc.js"></script>
+    <script src="/js/FileSaver.js"></script>
+    <script src="/js/lodash.js"></script>
+
+    <script>
+//Popover Tables
+var whitePop= $('#white_list').popover({
+            placement: 'bottom',
+            trigger: 'click',
+            html: true,
+            content: '<div style="width:295px" id="white_list_div"></div>' 
+    });
+var blackPop= $('#black_list').popover({
+            placement: 'bottom',
+            trigger: 'click',
+            html: true,
+            content: '<div style="width:170px" id="black_list_div"></div>' 
+    });
+var watchPop= $('#watch_list').popover({
+            placement: 'bottom',
+            trigger: 'click',
+            html: true,
+            content: '<div style="width:330px !important" id="watch_list_div"></div>' 
+    });
+var actionPop= $('#action_list').popover({
+            placement: 'bottom',
+            trigger: 'click',
+            html: true,
+            content: '<div style="width:330px" id="action_list_div"></div>' 
+    });
+var botPop= $('#bot_list').popover({
+            placement: 'bottom',
+            trigger: 'click',
+            html: true,
+            content: '<div style="width:330px" id="bot_list_div"></div>' 
+    });
+var cpuPop= $('#cpu_list').popover({
+            placement: 'bottom',
+            trigger: 'click',
+            html: true,
+            content: '<div style="width:330px" id="cpu_list_div"></div>' 
+    });	
+
+$('html').on('click', function(e) {
+		if (e.target != whitePop[0] &&
+			!$(e.target).parents().is('.popover.in')) {			
+			whitePop.popover('hide');
+		}
+		if (e.target != blackPop[0] &&
+			!$(e.target).parents().is('.popover.in')) {
+			blackPop.popover('hide');
+		}
+		if (e.target != watchPop[0] &&
+			!$(e.target).parents().is('.popover.in')) {
+			watchPop.popover('hide');
+		}
+		if (e.target != actionPop[0] &&
+			!$(e.target).parents().is('.popover.in')) {
+			actionPop.popover('hide');
+		}
+		if (e.target != botPop[0] &&
+			!$(e.target).parents().is('.popover.in')) {
+			botPop.popover('hide');
+		}
+		if (e.target != cpuPop[0] &&
+			!$(e.target).parents().is('.popover.in')) {
+			cpuPop.popover('hide');
+		}
+		
+	});
+var white_data;
+var black_data;
+var watch_data;
+var bot_data;
+var action_data;
+var cpu_data;
+//<div class=""><span>'+d.ip+'</span>			<span></span></div>
+
+$(document).on('shown.bs.popover','#white_list',function(){		
+	//$("#white_list_div").html('fdsfdsfsdf')
+	white_data.forEach(function(d,i){
+	if(i==0){
+	$("#white_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Frequency</td><td style="text-align:center;color:white">City/Country</td></tr>')
+				
+	}
+				if (i & 1) {
+				color = "td3"
+				} else {
+				color = "td5"
+				}				
+				$("#white_list_div").append('<tr class="'+color+'" width="100%"><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.ip + '" target="_blank">' + d.ip + '</a></div></td><td style="text-align:center;">'+d.Count+'</td><td style="text-align:center;">'+d.city+' / ' + d.country+'</td></tr>')
+				})	
+				$('#white_list').siblings('.popover').show();
+		});
+	$(document).on('hidden.bs.popover','#white_list',function(){
+		$('#white_list').siblings('.popover').hide();
+	});	
+	
+	$(document).on('hidden.bs.popover','#white_list',function(){
+		$('#white_list').siblings('.popover').hide();
+	});		
+
+	$(document).on('shown.bs.popover','#black_list',function(){		
+	//$("#white_list_div").html('fdsfdsfsdf')
+	black_data.forEach(function(d,i){
+	if (i & 1) {
+				color = "td3"
+				} else {
+				color = "td5"
+				}
+	if(i==0){
+	$("#black_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Restore</td></tr>')				
+	}
+				$("#black_list_div").append('<tr class='+color+'><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.ip + '" target="_blank">' + d.ip + '</a></div></td><td><button type="button"  class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Restore IP"><a style="color:green" href="iprestore/' + d.ip.replace(/\//,'_')+'" target="_blank"><span class="glyphicon glyphicon-leaf"></span></a></button></td></tr>')
+				})	
+				$('#black_list').siblings('.popover').show();
+		});
+	
+	$(document).on('hidden.bs.popover','#black_list',function(){
+		$('#black_list').siblings('.popover').hide();
+	});	
+	
+var blocked2;
+var bucket = [];
+$(document).on('shown.bs.popover','#watch_list',function(){		
+	//$("#white_list_div").html('fdsfdsfsdf')
+	watch_data.forEach(function(d,i){
+	if(i==0){
+	$("#watch_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Frequency</td><td style="text-align:center;color:white">CIDR</td><td style="text-align:center;color:white">Reason</td><td style="text-align:center;color:white">Blocked</td><td style="text-align:center;color:white">Save</td></tr>')
+				
+	}
+				if (i & 1) {
+				color = "td3"
+				} else {
+				color = "td5"
+				}
+				if(d.blocked=='No'){
+				blocked2='<button type="button"  class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Block IP"><a style="color:red" href="ipblock/' + d.remote_ip + '-' +d.cidr.substring(0, d.cidr.length - 3)+'" target="_blank"><span class="glyphicon glyphicon-trash"></span></a></button>'
+				} else {
+				blocked2 = 'Yes'
+				}
+				$("#watch_list_div").append('<tr class="'+color+'" width="100%"><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.remote_ip + '" target="_blank">' + d.remote_ip + '</a></div></td><td style="text-align:center;">'+d.Count+'</td><td style="text-align:center;">'+d.cidr+'</td><td contenteditable="true" style="text-align:center;">'+d.reason+'</td><td style="text-align:center;">'+blocked2+'</td><td <button type="button"  class="save btn btn-xs" data-toggle="tooltip" data-placement="top" title="Save"><span class="glyphicon glyphicon-ok" style="color:green"></span></button></td></tr>')
+				})	
+				$('#watch_list').siblings('.popover').show();
+$( "tr" ).click(function() {
+bucket = [];
+$(this).find('td').each (function() {
+  bucket.push($(this).text());
+});  
+});	
+$( "tr .save" ).click(function() {
+bucket = [];
+var nerede = $(this).closest('tr');
+nerede.find('td').each (function() {
+  bucket.push($(this).text());
+});  
+console.log(bucket);
+ $.ajax({
+        type: 'POST',
+		data: {
+		ip:bucket[0],
+		cidr:bucket[2].substring(0, bucket[2].length - 3),
+		reason:bucket[3],		
+		},
+        url: 'ipblock_update',
+        success: function (data) {
+		$.alert('Updated')
+		}
+		
+		});
+
+});
+});
+
+
+		
+	
+	$(document).on('hidden.bs.popover','#watch_list',function(){
+		$('#watch_list').siblings('.popover').hide();
+	});		
+
+var blocked3;
+$(document).on('shown.bs.popover','#bot_list',function(){		
+	//$("#white_list_div").html('fdsfdsfsdf')
+	bot_data.forEach(function(d,i){
+	if(i==0){
+	$("#bot_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Frequency</td><td style="text-align:center;color:white">CIDR</td><td style="text-align:center;color:white">Blocked</td></tr>')
+				
+	}
+				if (i & 1) {
+				color = "td3"
+				} else {
+				color = "td5"
+				}
+				if(d.blocked=='No'){
+				blocked3='<button type="button"  class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Block IP"><a style="color:red" href="ipblock/' + d.remote_ip + '-' +d.cidr.substring(0, d.cidr.length - 3)+'" target="_blank"><span class="glyphicon glyphicon-trash"></span></a></button>'
+				} else {
+				blocked3 = 'Yes'
+				}
+				$("#bot_list_div").append('<tr class="'+color+'" width="100%"><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.remote_ip + '" target="_blank">' + d.remote_ip + '</a></div></td><td style="text-align:center;">'+d.Count+'</td><td style="text-align:center;">'+d.cidr+'</td><td style="text-align:center;">'+blocked3+'</td></tr>')
+				})	
+				$('#bot_list').siblings('.popover').show();
+		});
+	
+	$(document).on('hidden.bs.popover','#bot_list',function(){
+		$('#bot_list').siblings('.popover').hide();
+	});	
+var blocked;
+$(document).on('shown.bs.popover','#action_list',function(){		
+	//$("#white_list_div").html('fdsfdsfsdf')
+	action_data.forEach(function(d,i){
+	if(i==0){
+	$("#action_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Frequency</td><td style="text-align:center;color:white">CIDR</td><td style="text-align:center;color:white">Blocked</td></tr>')
+				
+	}
+				if (i & 1) {
+				color = "td3"
+				} else {
+				color = "td5"
+				}
+				if(d.blocked=='No'){
+				blocked='<button type="button"  class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Block IP"><a style="color:red" href="ipblock/' + d.remote_ip + '-' +d.cidr.substring(0, d.cidr.length - 3)+'" target="_blank"><span class="glyphicon glyphicon-trash"></span></a></button>'
+				} else {
+				blocked = 'Yes'
+				}
+				$("#action_list_div").append('<tr class="'+color+'" width="100%"><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.remote_ip + '" target="_blank">' + d.remote_ip + '</a></div></td><td style="text-align:center;">'+d.Count+'</td><td style="text-align:center;">'+d.cidr+'</td><td style="text-align:center;">'+blocked+'</td></tr>')
+				})	
+				$('#action_list').siblings('.popover').show();
+		});
+		
+
+$(document).on('shown.bs.popover','#cpu_list',function(){		
+	//$("#white_list_div").html('fdsfdsfsdf')
+	cpu_data.forEach(function(d,i){
+	if(i==0){
+	$("#cpu_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">Time</td><td style="text-align:center;color:white">Server Name</td></tr>')
+				
+	}
+				if (i & 1) {
+				color = "td3"
+				} else {
+				color = "td5"
+				}
+				
+				$("#cpu_list_div").append('<tr class="'+color+'" width="100%"><td style="width:140px;"><div align="left">'+d.time+'</div></td><td style="text-align:center;width:140px;">'+d.server_name+'</td></tr>')
+				 	
+				$('#cpu_list').siblings('.popover').show();
+		});		
+	});
+	$(document).on('hidden.bs.popover','#cpu_list',function(){
+		$('#cpu_list').siblings('.popover').hide();
+	});	
+	
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            var genislik = 390;
+            var uzunluk = 500;
+        } else {
+            var genislik = 700;
+            var uzunluk = 500;
+        }
+        var carChart, barChart, dateBarChart,
+            post_data = {},
+            excludedChart = null,
+            country_filter,
+            page_name_filter,
+            siem_interval = '1week',
+            siem_start_date,
+            siem_end_date
+            ;
+       // $("#dialog").dialog();
+       // $("#dialog").dialog({ minHeight: uzunluk, minWidth: genislik });
+
+        $('div#dialog').on('dialogclose', function (event) {
+            if ($("#qr_check").val() != 1) {
+                location.reload();
+            }
+        });
+        if ("true" == "") {
+            $("#management_portal").hide();
+        }
+        ///////Print Filter
+        function print_filter(filter) {
+            var f = eval(filter);
+            if (typeof (f.length) != "undefined") { } else { }
+            if (typeof (f.top) != "undefined") { f = f.top(Infinity); } else { }
+            if (typeof (f.dimension) != "undefined") { f = f.dimension(function (d) { return ""; }).top(Infinity); } else { }
+        }
+        $(document).ready(function () {
+
+            $('.reset button').click(function(){
+                post_data = {};
+                page_name_filter = "";
+                country_filter = "";
+                excludedChart = null;
+                if ($(this).attr("id") == "reset_table")
+                {
+                   var oTable = $('#dc-table-chart2').dataTable();
+                   oTable.fnFilter('');
+                }
+                else
+                    $('#dc-table-chart2').DataTable().ajax.reload();
+                update_siemData();
+            });
+
+            //Popover Tables
+            var whitePop = $('#white_list').popover({
+                placement: 'bottom',
+                trigger: 'click',
+                html: true,
+                content: '<div style="width:295px" id="white_list_div"></div>'
+            });
+            var blackPop = $('#black_list').popover({
+                placement: 'bottom',
+                trigger: 'click',
+                html: true,
+                content: '<div style="width:170px" id="black_list_div"></div>'
+            });
+            var watchPop = $('#watch_list').popover({
+                placement: 'bottom',
+                trigger: 'click',
+                html: true,
+                content: '<div style="width:330px !important" id="watch_list_div"></div>'
+            });
+            var actionPop = $('#action_list').popover({
+                placement: 'bottom',
+                trigger: 'click',
+                html: true,
+                content: '<div style="width:330px" id="action_list_div"></div>'
+            });
+            var botPop = $('#bot_list').popover({
+                placement: 'bottom',
+                trigger: 'click',
+                html: true,
+                content: '<div style="width:330px" id="bot_list_div"></div>'
+            });
+            var cpuPop = $('#cpu_list').popover({
+                placement: 'bottom',
+                trigger: 'click',
+                html: true,
+                content: '<div style="width:330px" id="cpu_list_div"></div>'
+            });
+
+            $('html').on('click', function (e) {
+                if (e.target != whitePop[0] &&
+                    !$(e.target).parents().is('.popover.in')) {
+                    whitePop.popover('hide');
+                }
+                if (e.target != blackPop[0] &&
+                    !$(e.target).parents().is('.popover.in')) {
+                    blackPop.popover('hide');
+                }
+                if (e.target != watchPop[0] &&
+                    !$(e.target).parents().is('.popover.in')) {
+                    watchPop.popover('hide');
+                }
+                if (e.target != actionPop[0] &&
+                    !$(e.target).parents().is('.popover.in')) {
+                    actionPop.popover('hide');
+                }
+                if (e.target != botPop[0] &&
+                    !$(e.target).parents().is('.popover.in')) {
+                    botPop.popover('hide');
+                }
+                if (e.target != cpuPop[0] &&
+                    !$(e.target).parents().is('.popover.in')) {
+                    cpuPop.popover('hide');
+                }
+
+            });
+
+
+            $(document).on('shown.bs.popover', '#white_list', function () {
+
+                white_data.forEach(function (d, i) {
+                    if (i == 0) {
+                        $("#white_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Frequency</td><td style="text-align:center;color:white">City/Country</td></tr>')
+                    } else
+                       $("#white_list_div").append('<tr class="' + color + '" width="100%"><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.ip + '" target="_blank">' + d.ip + '</a></div></td><td style="text-align:center;">' + d.Count + '</td><td style="text-align:center;">' + d.city + ' / ' + d.country + '</td></tr>')
+
+                    if (i & 1) {
+                        color = "td3"
+                    } else {
+                        color = "td5"
+                    }
+                })
+                $('#white_list').siblings('.popover').show();
+            });
+            $(document).on('hidden.bs.popover', '#white_list', function () {
+                $('#white_list').siblings('.popover').hide();
+            });
+
+            $(document).on('shown.bs.popover', '#black_list', function () {
+
+                black_data.forEach(function (d, i) {
+                    if (i & 1) {
+                        color = "td3"
+                    } else {
+                        color = "td5"
+                    }
+                    if (i == 0) {
+                        $("#black_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Restore</td></tr>')
+                    } 
+                    else
+                    {
+                        if (d.ip)
+                            $("#black_list_div").append('<tr class=' + color + '><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.ip + '" target="_blank">' + d.ip + '</a></div></td><td><button type="button"  class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Restore IP"><a style="color:green" href="iprestore/' + d.ip.replace(/\//, '_') + '" target="_blank"><span class="glyphicon glyphicon-leaf"></span></a></button></td></tr>')
+
+                    }
+                })
+                $('#black_list').siblings('.popover').show();
+            });
+
+            $(document).on('hidden.bs.popover', '#black_list', function () {
+                $('#black_list').siblings('.popover').hide();
+            });
+
+            var blocked2;
+            $(document).on('shown.bs.popover', '#watch_list', function () {
+                watch_data.forEach(function (d, i) {
+                    if (i == 0) {
+                        $("#watch_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Frequency</td><td style="text-align:center;color:white">CIDR</td><td style="text-align:center;color:white">Blocked</td></tr>')
+                    }
+                    else
+                        $("#watch_list_div").append('<tr class="' + color + '" width="100%"><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.remote_ip + '" target="_blank">' + d.remote_ip + '</a></div></td><td style="text-align:center;">' + d.Count + '</td><td style="text-align:center;">' + d.cidr + '</td><td style="text-align:center;">' + blocked2 + '</td></tr>')
+
+                    if (i & 1) {
+                        color = "td3"
+                    } else {
+                        color = "td5"
+                    }
+                    if (d.blocked == 'No') {
+                        blocked2 = '<button type="button"  class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Block IP"><a style="color:red" href="ipblock/' + d.remote_ip + '-' + d.cidr.substring(0, d.cidr.length - 3) + '" target="_blank"><span class="glyphicon glyphicon-trash"></span></a></button>'
+                    } else {
+                        blocked2 = 'Yes'
+                    }
+                })
+                $('#watch_list').siblings('.popover').show();
+            });
+
+            $(document).on('hidden.bs.popover', '#watch_list', function () {
+                $('#watch_list').siblings('.popover').hide();
+            });
+
+            var blocked3;
+            $(document).on('shown.bs.popover', '#bot_list', function () {
+                bot_data.forEach(function (d, i) {
+                    if (i == 0) {
+                        $("#bot_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Frequency</td><td style="text-align:center;color:white">CIDR</td><td style="text-align:center;color:white">Blocked</td></tr>')
+                    }
+                    else
+                        $("#bot_list_div").append('<tr class="' + color + '" width="100%"><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.remote_ip + '" target="_blank">' + d.remote_ip + '</a></div></td><td style="text-align:center;">' + d.Count + '</td><td style="text-align:center;">' + d.cidr + '</td><td style="text-align:center;">' + blocked3 + '</td></tr>')
+
+                    if (i & 1) {
+                        color = "td3"
+                    } else {
+                        color = "td5"
+                    }
+                    if (d.blocked == 'No') {
+                        blocked3 = '<button type="button"  class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Block IP"><a style="color:red" href="ipblock/' + d.remote_ip + '-' + d.cidr.substring(0, d.cidr.length - 3) + '" target="_blank"><span class="glyphicon glyphicon-trash"></span></a></button>'
+                    } else {
+                        blocked3 = 'Yes'
+                    }
+                });
+
+                $('#bot_list').siblings('.popover').show();
+            });
+
+            $(document).on('hidden.bs.popover', '#bot_list', function () {
+                $('#bot_list').siblings('.popover').hide();
+            });
+            var blocked;
+            $(document).on('shown.bs.popover', '#action_list', function () {
+                
+                action_data.forEach(function (d, i) {
+                    if (i == 0) {
+                        $("#action_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">IP Address</td><td style="text-align:center;color:white">Frequency</td><td style="text-align:center;color:white">CIDR</td><td style="text-align:center;color:white">Blocked</td></tr>')
+                    }
+                    else
+                        $("#action_list_div").append('<tr class="' + color + '" width="100%"><td><div align="left"> <a style="color:blue" href="https://www.abuseipdb.com/check/' + d.remote_ip + '" target="_blank">' + d.remote_ip + '</a></div></td><td style="text-align:center;">' + d.Count + '</td><td style="text-align:center;">' + d.cidr + '</td><td style="text-align:center;">' + blocked + '</td></tr>')
+
+                    if (i & 1) {
+                        color = "td3"
+                    } else {
+                        color = "td5"
+                    }
+                    if (d.blocked == 'No') {
+                        blocked = '<button type="button"  class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Block IP"><a style="color:red" href="ipblock/' + d.remote_ip + '-' + d.cidr.substring(0, d.cidr.length - 3) + '" target="_blank"><span class="glyphicon glyphicon-trash"></span></a></button>'
+                    } else {
+                        blocked = 'Yes'
+                    }
+                });
+
+                $('#action_list').siblings('.popover').show();
+            });
+
+
+            $(document).on('shown.bs.popover', '#cpu_list', function () {
+                cpu_data.forEach(function (d, i) {
+                    if (i == 0) {
+                        $("#cpu_list_div").append('<tr style="background:black;" width="100%"><td style="color:whitesmoke">Time</td><td style="text-align:center;color:white">Server Name</td></tr>')
+                    }
+                    else
+                        $("#cpu_list_div").append('<tr class="' + color + '" width="100%"><td style="width:140px;"><div align="left">' + d.time + '</div></td><td style="text-align:center;width:140px;">' + d.server_name + '</td></tr>')
+
+                    if (i & 1) {
+                        color = "td3"
+                    } else {
+                        color = "td5"
+                    }
+
+
+
+                });
+                $('#cpu_list').siblings('.popover').show();
+            });
+            $(document).on('hidden.bs.popover', '#cpu_list', function () {
+                $('#cpu_list').siblings('.popover').hide();
+            });
+
+
+            $('.interval-input').on('click', function () {
+
+                siem_interval = $(this).attr('id');
+
+                if (siem_interval != 'range') {
+                    $('.interval-input').removeClass("btn-primary").addClass('btn-default');
+                    $(this).addClass('btn-primary');
+
+                    excludedChart=null;
+
+                    update_siemData();
+                    $('#dc-table-chart2').DataTable().ajax.reload();
+
+                }
+            });
+            $('#range').click(function () {
+                $('#selectRange').modal('show');
+            });
+            $('#btn_set_range').click(function () {
+
+                siem_start_date = $('#start_date').val();
+                siem_end_date = $('#end_date').val();
+                siem_interval = 'range';
+                $('#selectRange').modal('hide');
+                $('.interval-input').removeClass("btn-primary").addClass('btn-default');
+                $('#range').addClass('btn-primary');
+                excludedChart=null;
+                update_siemData();
+                $('#dc-table-chart2').DataTable().ajax.reload();
+            });
+            //set options and columns
+            var dataTableOptions = {
+                "bProcessing": true,
+                "bServerSide": true,
+                "sAjaxSource": "./siem_table_data",
+                "fnServerParams": function (aoData) {
+                    aoData.push({ "name": "country", "value": country_filter });
+                    aoData.push({ "name": "page_name", "value": page_name_filter });
+                    aoData.push({ "name": "interval", "value": siem_interval });
+                    aoData.push({ "name": "start_date", "value": siem_start_date });
+                    aoData.push({ "name": "end_date", "value": siem_end_date });
+                },
+                responsive: true,
+                "lengthMenu": [[7, 25, 50, 100], [7, 25, 50, 100]],
+                "order": [[0, "desc"]],
+                "oLanguage": {
+                    "oPaginate": {
+                        "sFirst": "",
+                        "sPrevious": "",
+                        "sNext": "",
+                        "sLast": ""
+                    },
+                    "sLengthMenu": "Records per page: _MENU_",
+                    "sInfo": "Total of _TOTAL_ records (showing _START_ to _END_)",
+                    "sInfoFiltered": "(filtered from _MAX_ total records)"
+                },
+                "deferRender": true,
+                "fnDrawCallback": function (oSettings) {
+                    //DATATABLE LOADED ----------------------
+                    $('#loading-screen').hide();
+                    $('#dc-table-chart').show();
+                    $('#tablePanel').show();
+                },
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData.blocked == 1) {
+                        $("#blocked_ip", nRow).show();
+                        $("#block_ip", nRow).hide();
+                    }
+                    var checked_out = aData.checked_out,
+                        disposed = aData.disposed;
+                    if (checked_out == 1) {
+                        $("#bt1_out", nRow).hide();
+                        $("#bt1_delete", nRow).hide();
+                        $("#bt1_out2", nRow).show();
+                        $("#bt1", nRow).hide();
+                    } else {
+                        $("#bt1_out", nRow).show();
+                        $("#bt1_delete", nRow).show();
+                        $("#bt1_out2", nRow).hide();
+                    }
+                    if (disposed == 1) {
+                        $("#bt1_dispose", nRow).show();
+                        $("#bt1_out", nRow).hide();
+                        $("#bt1_out2", nRow).hide();
+                        $("#bt1_delete", nRow).hide();
+                        $("#bt1", nRow).hide();
+                    } else {
+                        $("#bt1_dispose", nRow).hide();
+                    }
+                    return nRow;
+                },
+                columnDefs: [
+                    {
+                        targets: 0,
+                        className: "dt-nowrap",
+                        visible: false,
+                        data: function (d) {
+                            return d[0];
+                        },
+                        defaultContent: ''
+                    },
+
+                    {
+                        targets: 1,
+                        className: "dt-nowrap",
+                        data: function (d) {
+                            return d[1];
+                        },
+                        defaultContent: ''
+                    },
+                    {
+                        targets: 2, className: "dt-nowrap",
+                        data: function (d) {
+                            return d[2];
+                        },
+                        defaultContent: ''
+                    },
+                    {
+                        targets: 3, className: "dt-nowrap",
+                        data: function (d) {
+                            return d[3];
+                        },
+                        defaultContent: ''
+                    },
+                    {
+                        targets: 4, className: "dt-nowrap",
+                        data: function (d) {
+                            return d[4];
+                        },
+                        defaultContent: ''
+                    },
+                    {
+                        targets: 5, className: "dt-nowrap",
+                        //responsivePriority: 9, 
+                        data: function (d) {
+                            return d[5];
+                        },
+                        defaultContent: ''
+                    },
+                    {
+                        targets: 6, className: "dt-nowrap",
+                        data: function (d) {
+                            return d[6];
+                        },
+                        defaultContent: ''
+                    },
+                    {
+                        targets: 7, className: "dt-nowrap",
+                        data: function (d) {
+                            return d[7];
+                        },
+                        width: "100px",
+                        defaultContent: ''
+                    },
+                    {
+                        targets: 8, className: "dt-nowrap",
+                        data: function (d) {
+                            return d[8];
+                        },
+                        width: "150px",
+                        defaultContent: ''
+                    },
+                    {
+                        targets: 9, className: "dt-nowrap",
+                        data: null,
+                        width: "150px",
+                        defaultContent:
+                            '<button type="button" id="block_ip" class="btn btn-xs" data-toggle="tooltip" data-placement="top" title="Block IP"><span class="glyphicon glyphicon-trash"></span></button>' +
+                            '<button type="button" style="display:none" id="blocked_ip" class="btn btn-xs btn-success" data-toggle="tooltip" data-placement="top" title="Block IP">Blocked</button>'
+                    },
+                    {
+                        targets: 10, className: "dt-nowrap",
+                        data: function (d) {
+                            return d[9];
+                        },
+                        width: "150px",
+                        defaultContent: ''
+                    }
+                ]
+            };
+            var datatable = $('#dc-table-chart2');
+            //initialize datatable
+            datatable.dataTable(dataTableOptions);
+
+            datatable.DataTable().on('click', '#block_ip', function () {
+
+                var data = datatable.DataTable().row($(this).parents('tr')).data();
+
+                var ip = data[1].split('::ffff:')[1];
+                $.ajax({
+                    type: "POST",
+                    url: 'ipblock',
+                    data: { full_ip: data.ip, ip: ip },
+                    success: function (data) {
+                        $.alert('Successfully added');
+                    }
+                });
+                setTimeout(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: 'ipblock',
+                        data: { full_ip: data.ip, ip: ip },
+                        success: function (data) {
+                            $.alert('Successfully added');
+                        }
+                    });
+                }, 2500);
+            });
+            //datatable.dataTable(dataTableOptions);
+            if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                $('#dc-table-chart2_info').hide();
+                $('#dc-table-chart2_length').hide();
+            }
+
+            $("#dc-table-chart2_filter input[type=search]").on('input', _.debounce(function () {
+                post_data = {};
+                page_name_filter = "";
+                country_filter = "";
+                excludedChart = null;
+                $('#dc-table-chart2').DataTable().ajax.reload();
+                update_siemData();
+            }, 1000));
+
+        });
+        setInterval(function () {
+            update_siemData();
+            $('#dc-table-chart2').DataTable().ajax.reload();
+        }, 60 * 1000);
+
+        update_siemData();
+
+        function update_siemData() {
+            post_data.search = $("#dc-table-chart2_filter input[type=search]").val();
+            post_data.interval = siem_interval;
+            post_data.start_date = siem_start_date;
+            post_data.end_date = siem_end_date;
+            $.ajax({
+                type: "POST",
+                contentType: "application/json; charset=utf-8",
+                url: 'siem_data',
+                dataType: 'json',
+                async: true,
+                data: JSON.stringify(post_data),
+                success: function (data) {
+                    var country_data = data.country_data,
+                        page_data = data.page_data,
+                        date_data = data.date_data;
+                    white_data = data.white_data || [];
+                    black_data = data.black_data || [];
+                    watch_data = data.watch_data || [];
+                    bot_data = data.bot_data || [];
+                    action_data = data.action_data || [];
+                    cpu_data = data.cpu_data || [];
+
+                    $('#white_list').text(white_data.length);
+                    $('#black_list').text(black_data.length);
+                    $('#watch_list').text(watch_data.length);
+                    $('#bot_list').text(bot_data.length);
+                    $('#action_list').text(action_data.length);
+                    $('#cpu_list').text(cpu_data.length);
+
+                    //toplevel crossfilter
+                    var xf_country = crossfilter(country_data);
+                    var xf_page_name = crossfilter(page_data);
+                    var xf_date = crossfilter(date_data);
+                    $("#pasif").click(function (e) {
+                        $("#profilim").show();
+                        $(window).on("resize", function () {
+                            $(".content .right").width($(this).width() - 480);
+                        }).resize();
+                    });
+
+                    if (excludedChart != "page_names") {
+                        var pageNames = xf_page_name.dimension(function (d) {
+                            return d.page_name;
+                        });
+
+                        var pageNameGroup = pageNames.group().reduceSum(function (d) {
+                            return d.Count;
+                        });
+                        if (barChart) {
+                            dc.deregisterChart(barChart);
+                        }
+                        barChart = dc.barChart("#chart2"); //Page_name chart			
+                        barChart
+                            .dimension(pageNames)
+                            .group(pageNameGroup)
+                            .x(d3.scale.ordinal())
+                            .ordinalColors(['#e41a1c', '#377eb8', '#4daf4a', '#984ea3', '#ff7f00', '#ffff33', '#a65628'])
+                            .xUnits(dc.units.ordinal)
+                            .elasticY(true)
+                            .clipPadding(20)
+                            .centerBar(false)
+                            .renderLabel(true)
+                            .barPadding(0.1)
+                            .outerPadding(0.5)
+                            .margins({ top: 20, left: 30, right: 50, bottom: 95 })
+                            .xAxisLabel('')
+                            .yAxisLabel('')
+                            .ordering(function (d) {
+                                if (d.key == "check-in") return 0;
+                                else if (d.key == "check-out") return 1;
+                                else if (d.key == "disposed") return 2;
+                                else if (d.key == "Uncompleted Cases") return 3;
+                                else if (d.key == "Waiting for Approval") return 4;
+                                else if (d.key == "Completed Cases") return 5;
+                                else if (d.key == "Closed Daily Log") return 6;
+                            })
+                            .colors(d3.scale.ordinal().domain(["Bir", "Iki", "Uc", "Dort", "Bes", "Alti", "Yedi", "Sekiz", "Dokuz", "On", "Onbir", "Oniki", "Onuc", "Ondort"])
+                                .range(["seagreen", "red", "brown", "blue", " #ffb84d", "seagreen",
+                                    "seagreen", " #8585ad", "seagreen", "#004d99", "#004080", "#003366", " #00264d", "#001a33"]))
+                            .colorAccessor(function (d) {
+                                if (d.key == "Failed Login Page") return 'Iki';
+                                else if (d.key == "Failed OTP Page") return 'Iki';
+                                else if (d.key == "disposed") return 'Uc';
+                                else if (d.key == "Uncompleted Cases") return 'Dort';
+                                else if (d.key == "Waiting for Approval") return 'Bes';
+                                else if (d.key == "Completed Cases") return 'Alti';
+                                else if (d.key == "Closed Daily Log") return 'Yedi';
+                                else if (d.key == "All Other Theft") return 'Sekiz';
+                                else if (d.key == "Completed Task") return 'Dokuz';
+                                else if (d.key == "2019") return 'On';
+                                else if (d.key == "2020") return 'Onbir';
+                                else if (d.key == "2021") return 'Oniki';
+                                else if (d.key == "2022") return 'Onuc';
+                                else if (d.key == "2023") return 'Ondort';
+                            })
+                            .on("renderlet", (function (chart) {
+                                var barsData = [];
+                                var bars = chart.selectAll('.bar').each(function (d) {
+                                    barsData.push(d);
+                                });
+                                if (bars.length > 0 && bars[0][0]) {
+                                    d3.select(bars[0][0].parentNode).select('#inline-labels').remove();
+                                    var gLabels = d3.select(bars[0][0].parentNode).append('g').attr('id', 'inline-labels');
+                                }
+                                chart.selectAll('g.x text')
+                                    .attr('transform', 'translate(-35,35) rotate(-45)');
+                            }));
+                    }
+                    if (excludedChart != "dates") {
+                        var dateDimension = xf_date.dimension(function (d) {
+                            return d3.time.format.iso.parse(d.date_visited + ":00");
+                        });
+                        var dateGroup = dateDimension.group().reduceSum(function (d) {
+                            return d.Count;
+                        });
+                        if (dateBarChart) {
+                            dc.deregisterChart(dateBarChart);
+                        }
+                        dateBarChart = dc.lineChart("#dc-date-chart");
+
+                        var dtStart = 0, dtEnd = 0;
+                        if (date_data.length > 0) {
+                            dtStart = new Date(date_data[0].date_visited + ":00");
+                            dtEnd = new Date(date_data[date_data.length - 1].date_visited + ":00");
+                        }
+
+                        dateBarChart
+                            .height(300)
+                            .margins({ top: 10, right: 10, bottom: 80, left: 20 })
+                            .dimension(dateDimension)
+                            .group(dateGroup)
+                            .x(d3.time.scale().domain([dtStart, dtEnd]))
+                            .y(d3.scale.linear().domain([0, d3.max(date_data, function (d) { return d.Count + 3; })]))
+                            .yAxis()
+                            .ticks(10, ",.0f")
+                            .tickSize(5, 0);
+                    }
+                    if (excludedChart != "country") {
+                        var countryDimension = xf_country.dimension(function (d) {
+                            return d.country;
+                        });
+                        var countryGroup = countryDimension.group().reduceSum(function (d) {
+                            return d.Count;
+                        });;
+                        print_filter(countryGroup);
+                        if (carChart) {
+                            dc.deregisterChart(carChart);
+                        }
+                        carChart = dc.barChart("#chart5"); //Unique ip by country chart
+                        carChart
+                            .dimension(countryDimension)
+                            .group(countryGroup)
+                            .x(d3.scale.ordinal())
+                            .xUnits(dc.units.ordinal)
+                            .elasticY(true)
+                            .clipPadding(20)
+                            .centerBar(false)
+                            .renderLabel(true)
+                            .barPadding(0.1)
+                            .outerPadding(0.5)
+                            .margins({ top: 20, left: 30, right: 20, bottom: 30 })
+                            .xAxisLabel('')
+                            .yAxisLabel('')
+                    }
+                    ///// Show Time For Visualizations -- Show Charts and Tables
+                    dc.renderAll();
+                    for (var i = 0; i < dc.chartRegistry.list().length; i++) {
+                        var chartI = dc.chartRegistry.list()[i];
+                        chartI.on("filtered", function (chart, val) {
+
+                            if (chart == carChart) //Country chart
+                            {
+                                post_data["country"] ||= [];
+                                var ind = post_data["country"].indexOf(val);
+                                if (ind == -1) {
+                                    post_data["country"].push(val);
+                                }
+                                else post_data["country"].splice(ind, 1);
+
+                                post_data = {
+                                    country: post_data["country"]
+                                };
+                                excludedChart = 'country';
+                                if (post_data["country"].length == 0) excludedChart = null;
+                                country_filter = post_data["country"].join(',');
+                                page_name_filter = "";
+                                $('#dc-table-chart2').DataTable().ajax.reload();
+
+                                update_siemData();
+                            }
+                            else if (chart == barChart) // page names chart
+                            {
+                                post_data["page_name"] ||= [];
+                                var ind = post_data["page_name"].indexOf(val);
+                                if (ind == -1) {
+                                    post_data["page_name"].push(val);
+                                }
+                                else post_data["page_name"].splice(ind, 1);
+
+                                post_data = {
+                                    page_name: post_data["page_name"]
+                                };
+
+                                excludedChart = "page_names";
+                                if (post_data["page_name"].length == 0) excludedChart = null;
+                                page_name_filter = post_data["page_name"].join(',');
+                                country_filter = "";
+                                $('#dc-table-chart2').DataTable().ajax.reload();
+                                update_siemData();
+                            }
+                            else if (chart == dateBarChart) // date chart
+                            {
+                                post_data["date"] = val;
+                                filteredChart = "dates";
+                                update_siemData();
+                            }
+                        });
+                    }
+                },
+                error: function (result) {
+                }
+
+            })
+        }
+    </script>
+
+</body>
+
+</html>
+
+
+	<script src="/js/jquery.js"></script>
+	<script src='/js/bootstrap.js'></script>
+	<script src='/js/bootstrap.min.js'></script>
+	<script src='/js/moment.min.js'></script>
+	<script src="/js/bootstrap-datetimepicker.min.js"></script>
+	<script src='/js/bootstrap-select.min.js'></script>	
+	<script src='/js/bootstrap-multiselect1.js'></script>
+	<script src="/js/typeahead.bundle.min.js"></script>
+	<script src="/js/jquery.validate.min.js"></script>
+	<script src='/js/jquery.dataTables.min.js'></script>
+	<script src="/js/dataTables.buttons.min.js"></script>
+	<script src="/js/dataTables.responsive.min.js"></script>	
+	<script src="/js/dataTables.fixedColumns.min.js"></script>	
+	<script src="/js/dataTables.checkboxes.min.js"></script>		
+	<script src="/js/jquery.highlight.js"></script>
+	<script src="/js/FileSaver.js"></script>
+	<script src="/js/jquery-ui.js"></script>
+	<script src="/js/jquery-confirm.js"></script>
+	<script src="/imgSlides/imgSlides.js"></script>
+	<script src="/js/jquery.colorbox.js"></script>
+	<script src='/js/fullcalendar.js'></script>
+	<script src="/js/myPopupWin.js"></script>
+<script>
+    if(""==null || ""==""){
+    $("#uc").val("");
+    }
+	/*
+	$(document).ready(function () {
+        $('.selectpicker').selectpicker().change(function(){
+            $(this).valid()
+        });
+    });
+	*/
+	/*
+if(document.querySelector('textarea')){
+var textarea = document.querySelector('textarea');
+
+textarea.addEventListener('keydown', autosize);
+             
+}
+*/
+</script>
+	<footer>
+		<div class="copyright text-center">
+			<p style="color: rgba(245, 245, 245, 0.692)">
+					Copyright &copy; <script>document.write(new Date().getFullYear())</script> Peel9. All Rights Reserved
+			</p>
+		</div>
+	</footer>
+</body>
+</html>
