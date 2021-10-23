@@ -40,6 +40,7 @@
             
 
             <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+            <input type="hidden" name="token" value="{{token}}">
 	
             <button type="submit" id="gonder_beni" style="border-radius:15px; float:right;margin-top:20px;"
                 class="btn btn-primary btn-lg">Sign In</button>
@@ -60,6 +61,7 @@
 
 </div>
 <script>
+    
   /*
     $("form").submit(function(event) {
     //if (location.hostname != "localhost" ) {   
